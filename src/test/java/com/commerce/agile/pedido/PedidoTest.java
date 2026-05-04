@@ -11,9 +11,7 @@ class PedidoTest {
 
     @Test
     @DisplayName("")
-    void test(){
-
-    }
+    void test(){}
 
 
 }
