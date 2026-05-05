@@ -23,7 +23,10 @@ public class CategoriaService {
 
     @Transactional
     public CategoriaDTO criarNovaCategoria(CategoriaDTO categoriaDTO){
-        CategoriaDomain categoriaDomain = new CategoriaDomain(categoriaDTO.nome());
+        CategoriaDomain categoriaDomain = new CategoriaDomain(
+                categoriaDTO.id(),
+                categoriaDTO.nome()
+        );
 
         Categoria entidade = categoriaMapper.toEntity(categoriaDomain);
 

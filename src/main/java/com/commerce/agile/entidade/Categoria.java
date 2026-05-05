@@ -16,6 +16,13 @@ public class Categoria {
     @NotBlank(message = "Nome não pode ser estar vazio")
     private String nome;
 
+    public Categoria() {}//construtor sem parâmetros para JPA
+
+    public Categoria(Long id, String nome) {
+        this.nome = nome;
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

@@ -9,9 +9,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CategoriaMapper {
 
-    @Mapping(target = "id", ignore = true)
     CategoriaDomain toDomain(Categoria entidade);
 
+    @Mapping(target = "id", ignore = true)
     Categoria toEntity(CategoriaDomain dominio);
 
     CategoriaDomain toDomainFromDto(CategoriaDTO dto);
