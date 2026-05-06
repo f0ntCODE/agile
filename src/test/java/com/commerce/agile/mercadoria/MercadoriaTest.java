@@ -26,7 +26,7 @@ public class MercadoriaTest {
 
     @Test
     void mercadoriaDeveSerCriada(){
-        CategoriaDTO dto = new CategoriaDTO(null, "Cozinha");
+        CategoriaDTO dto = new CategoriaDTO("Cozinha");
         CategoriaDTO categoriaDto = categoriaService.criarNovaCategoria(dto);
 
         CategoriaDTO categoria = categoriaService.buscarCategoriaPorId(categoriaDto.id())
