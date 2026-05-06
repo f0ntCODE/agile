@@ -28,6 +28,15 @@ public class Mercadoria {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
+    public Mercadoria(String nome, String descricao, BigDecimal precoUnitario, Categoria categoria) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.precoUnitario = precoUnitario;
+        this.categoria = categoria;
+    }
+
+    public Mercadoria(){}
+
     public Long getId() {
         return id;
     }
@@ -48,5 +57,23 @@ public class Mercadoria {
         return categoria;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 }

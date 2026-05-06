@@ -12,6 +12,7 @@ public interface CategoriaMapper {
     CategoriaDomain toDomain(Categoria entidade);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "nome", source = "nome")
     Categoria toEntity(CategoriaDomain dominio);
 
     CategoriaDomain toDomainFromDto(CategoriaDTO dto);

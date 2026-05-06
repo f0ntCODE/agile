@@ -3,7 +3,6 @@ package com.commerce.agile.mercadoria;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.commerce.agile.dominio.CategoriaDomain;
 import com.commerce.agile.dto.categoria.CategoriaDTO;
 import com.commerce.agile.dto.mercadoria.RequestMercadoriaDTO;
 import com.commerce.agile.dto.mercadoria.ResponseMercadoriaDTO;

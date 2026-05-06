@@ -13,20 +13,16 @@ public class MercadoriaDomain {
     private String nome;
     private String descricao;
     private BigDecimal precoUnitario;
-    private CategoriaDomain categoriaDomain;
+    private CategoriaDomain categoria;
 
-    public MercadoriaDomain(Long id, String nome, String descricao, BigDecimal precoUnitario, CategoriaDomain categoriaDomain){
+    public MercadoriaDomain(String nome, String descricao, BigDecimal precoUnitario){
 
         if(nome == null || nome.isBlank()){throw new NomeInvalidoException("[X] Nome inválido ou vazio");}
         if(descricao == null || descricao.isBlank()){throw new NomeInvalidoException("[X] Descricao inválida ou vazia");}
         if(precoUnitario.equals(BigDecimal.ZERO) || precoUnitario.compareTo(BigDecimal.ZERO) < 0){throw  new IllegalArgumentException("[X] Preco inválido para mercadoria");};
-        if(categoriaDomain == null){throw new IllegalArgumentException("[X] O Produto DEVE pertencer a uma categoria");}
-
-        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.precoUnitario = precoUnitario;
-        this.categoriaDomain = categoriaDomain;
     }
 
     public void atualizar(String novoNome, String novaDescricao, BigDecimal novoPrecoUnitario){
@@ -38,6 +34,8 @@ public class MercadoriaDomain {
         this.descricao = novaDescricao;
         this.precoUnitario = novoPrecoUnitario;
     }
+
+    public Long getId() {return id;}
 
     public String getNome() {
         return nome;
@@ -51,4 +49,27 @@ public class MercadoriaDomain {
         return precoUnitario;
     }
 
+    public CategoriaDomain getCategoria() {
+        return this.categoria;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
+    public void setCategoria(CategoriaDomain categoria) {
+        this.categoria = categoria;
+    }
 }

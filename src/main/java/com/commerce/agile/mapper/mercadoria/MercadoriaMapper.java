@@ -7,16 +7,19 @@ import com.commerce.agile.entidade.Mercadoria;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses =  {MercadoriaMapper.class})
 public interface MercadoriaMapper {
 
     RequestMercadoriaDTO toDto(ResponseMercadoriaDTO responseMercadoriaDTO);
 
     ResponseMercadoriaDTO toResponse(MercadoriaDomain mercadoriaDomain);
 
-    @Mapping(target = "id", ignore = true)
     MercadoriaDomain toDomain(Mercadoria mercadoria);
 
+    @Mapping(target = "nome", source = "nome")
+    @Mapping(target = "descricao", source = "descricao")
+    @Mapping(target = "precoUnitario", source = "precoUnitario")
+    @Mapping(target = "categoria", source = "categoria")
     Mercadoria toEntity(MercadoriaDomain mercadoriaDomain);
 
     ResponseMercadoriaDTO toResponseFromEntity(Mercadoria mercadoria);
