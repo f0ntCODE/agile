@@ -14,7 +14,10 @@ import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.stylesheets.LinkStyle;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -101,4 +104,16 @@ public class MercadoriaService {
         return Optional.of(response);
 
     }
+
+    public List<ResponseMercadoriaDTO> listarTodas(){
+        List<Mercadoria> listaMercadorias =
+                mercadoriaRepository.findAll();
+
+        return listaMercadorias
+                .stream()
+                .map(mercadoriaMapper::toResponseFromEntity)
+                .toList();
+
+    }
+
 }
