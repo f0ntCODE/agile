@@ -1,7 +1,7 @@
 package com.commerce.agile.mapper.mercadoria;
 
 import com.commerce.agile.dominio.CategoriaDomain;
-import com.commerce.agile.dto.categoria.CategoriaDTO;
+import com.commerce.agile.dto.categoria.ResponseCategoriaDTO;
 import com.commerce.agile.entidade.Categoria;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,7 +15,7 @@ public interface CategoriaMapper {
     @Mapping(target = "nome", source = "nome")
     Categoria toEntity(CategoriaDomain dominio);
 
-    CategoriaDomain toDomainFromDto(CategoriaDTO dto);
+    CategoriaDomain toDomainFromDto(ResponseCategoriaDTO dto);
 
-    CategoriaDTO toDto(CategoriaDomain dominio);
+    ResponseCategoriaDTO toDto(CategoriaDomain dominio);
 }

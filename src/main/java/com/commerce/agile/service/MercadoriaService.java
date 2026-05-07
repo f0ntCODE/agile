@@ -2,7 +2,6 @@ package com.commerce.agile.service;
 
 import com.commerce.agile.dominio.CategoriaDomain;
 import com.commerce.agile.dominio.MercadoriaDomain;
-import com.commerce.agile.dto.categoria.CategoriaDTO;
 import com.commerce.agile.dto.mercadoria.RequestMercadoriaDTO;
 import com.commerce.agile.dto.mercadoria.ResponseMercadoriaDTO;
 import com.commerce.agile.entidade.Categoria;
@@ -62,9 +61,40 @@ public class MercadoriaService {
     }
 
     @Transactional
+    public void excluirMercadoriaPeloId(Long idMercadoria){
+        if(mercadoriaRepository.findById(idMercadoria).isEmpty()){throw new NaoEncontradoException("Mercadoria não encontrada");}
+
+        mercadoriaRepository.deleteById(idMercadoria);
+    }
+
+    @Transactional
+    public ResponseMercadoriaDTO editarDadosMercadoria(Long idMercadoria, RequestMercadoriaDTO novosDados, Long idCategoria){
+
+        Categoria categoria = categoriaRepository.findById(idCategoria)
+                .orElseThrow(() -> new NaoEncontradoException("Categoria não econtrada"));
+
+        Mercadoria mercadoria = mercadoriaRepository.findById(idMercadoria)
+                .orElseThrow(() -> new NaoEncontradoException("Mercadoria não encontrada"));
+
+        mercadoria.setNome(novosDados.nome());
+        mercadoria.setDescricao(novosDados.descricao());
+        mercadoria.setPrecoUnitario(novosDados.precoUnitario());
+        mercadoria.setCategoria(categoria);
+
+        if(!idCategoria.equals(mercadoria.getCategoria().getId())){mercadoria.setCategoria(categoria);}
+
+        Mercadoria mercadoriaSalva = mercadoriaRepository.save(mercadoria);
+
+        return mercadoriaMapper.toResponseFromEntity(mercadoriaSalva);
+
+    }
+
+
+    @Transactional
     public Optional<ResponseMercadoriaDTO> findMercadoriaById(Long id){
 
-        Optional<Mercadoria> mercadoriaEncontrada = mercadoriaRepository.findById(id);
+        Optional<Mercadoria> mercadoriaEncontrada = Optional.of(mercadoriaRepository.findById(id)
+                .orElseThrow(() -> new NaoEncontradoException("Mercadoria não encontrada")));
 
         ResponseMercadoriaDTO response = mercadoriaMapper.toResponseFromEntity(mercadoriaEncontrada.get());
 

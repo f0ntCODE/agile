@@ -1,11 +1,6 @@
 package com.commerce.agile.dto.categoria;
 
-public record CategoriaDTO(
+public record ResponseCategoriaDTO(
         Long id,
         String nome)
-{
-    public CategoriaDTO(String nome){
-
-    }
-
-}
+{}

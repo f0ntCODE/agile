@@ -7,11 +7,10 @@ public class CategoriaDomain {
     private Long id;
     private String nome;
 
-    public CategoriaDomain(Long id, String nome) {
+    public CategoriaDomain(String nome) {
         if(nome.isEmpty()){throw new NomeInvalidoException("Nome inválido");}
 
         this.nome = nome;
-        this.id = id;
     }
 
     public String getNome() {
@@ -21,4 +20,6 @@ public class CategoriaDomain {
     public Long getId() {
         return id;
     }
+
+    public void setId(Long id){this.id = id;}
 }

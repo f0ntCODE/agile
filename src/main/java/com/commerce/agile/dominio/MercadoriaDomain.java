@@ -1,11 +1,10 @@
 package com.commerce.agile.dominio;
 import java.math.BigDecimal;
 
-import com.commerce.agile.entidade.Categoria;
 import src.main.java.com.commerce.agile.seguranca.excecoes.NomeInvalidoException;
 
 /**
- * Entidade MERCADORIA
+ * DOMÍNIO MERCADORIA
  */
 public class MercadoriaDomain {
 
@@ -25,7 +24,7 @@ public class MercadoriaDomain {
         this.precoUnitario = precoUnitario;
     }
 
-    public void atualizar(String novoNome, String novaDescricao, BigDecimal novoPrecoUnitario){
+    public void atualizarDados(String novoNome, String novaDescricao, BigDecimal novoPrecoUnitario){
         if(novoNome == null || novoNome.isBlank()){throw new NomeInvalidoException("[X] Nome inválido ou vazio");}
         if(novaDescricao == null || novaDescricao.isBlank()){throw new NomeInvalidoException("[X] Descricao inválida ou vazia");}
         if(novoPrecoUnitario.equals(BigDecimal.ZERO) || novoPrecoUnitario.compareTo(BigDecimal.ZERO) < 0){throw  new IllegalArgumentException("[X] Preco inválido para mercadoria");}

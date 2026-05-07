@@ -1,11 +1,11 @@
 package com.commerce.agile.service;
 
 import com.commerce.agile.dominio.CategoriaDomain;
-import com.commerce.agile.dto.categoria.CategoriaDTO;
+import com.commerce.agile.dto.categoria.RequestCategoriaDTO;
+import com.commerce.agile.dto.categoria.ResponseCategoriaDTO;
 import com.commerce.agile.entidade.Categoria;
 import com.commerce.agile.mapper.mercadoria.CategoriaMapper;
 import com.commerce.agile.repository.CategoriaRepository;
-import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,9 @@ public class CategoriaService {
     private CategoriaMapper categoriaMapper;
 
     @Transactional
-    public CategoriaDTO criarNovaCategoria(CategoriaDTO categoriaDTO){
+    public ResponseCategoriaDTO criarNovaCategoria(RequestCategoriaDTO requestCategoriaDTO){
         CategoriaDomain categoriaDomain = new CategoriaDomain(
-                categoriaDTO.id(),
-                categoriaDTO.nome()
+                requestCategoriaDTO.nome()
         );
 
         Categoria entidade = categoriaMapper.toEntity(categoriaDomain);
@@ -37,8 +36,10 @@ public class CategoriaService {
         return  categoriaMapper.toDto(categoriaSalva);
     }
 
+
+
     @Transactional
-    public Optional<CategoriaDTO> buscarCategoriaPorId(Long id){
+    public Optional<ResponseCategoriaDTO> buscarCategoriaPorId(Long id){
 
         Optional<Categoria> categoriaEncontrada = categoriaRepository.findById(id);
         CategoriaDomain categoria = categoriaMapper.toDomain(categoriaEncontrada.get());
