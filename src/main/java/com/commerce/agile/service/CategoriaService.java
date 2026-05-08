@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,5 +71,16 @@ public class CategoriaService {
         CategoriaDomain categoria = categoriaMapper.toDomain(categoriaEncontrada.get());
 
         return Optional.of(categoriaMapper.toDto(categoria));
+    }
+
+    public List<ResponseCategoriaDTO> listarTodas(){
+
+        List<Categoria> categoriaDTOList = categoriaRepository.findAll();
+
+        return categoriaDTOList
+                .stream()
+                .map(categoriaMapper::toResponseFromEntity)
+                .toList();
+
     }
 }

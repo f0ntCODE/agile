@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -37,7 +40,7 @@ public class CategoriaTest {
         @Test
         @DisplayName("Categoria deve ser excluída")
         void categoriaDeveSerExcluida() {
-            ResponseCategoriaDTO categoriaDTO = criarCategoria();
+            ResponseCategoriaDTO categoriaDTO = criarCategoria("Cozinha");
 
             categoriaService.excluirCategoriaPeloId(categoriaDTO.id());
 
@@ -50,7 +53,7 @@ public class CategoriaTest {
         @Test
         @DisplayName("Categoria deve ser editada")
         void mercadoriaDeveSerEditada() {
-            ResponseCategoriaDTO categoriaDTO = criarCategoria();
+            ResponseCategoriaDTO categoriaDTO = criarCategoria("Cozinha");
 
             RequestCategoriaDTO novoDado = new RequestCategoriaDTO("Sala de estar");
 
@@ -64,14 +67,27 @@ public class CategoriaTest {
         @Test
         @DisplayName("Deve-se obter a lista de todas as categorias registrada")
         void deveResgatarTodasAsCategoriasResgistradas(){
+            ResponseCategoriaDTO categoriaCozinhaDto = criarCategoria("Cozinha");
+            ResponseCategoriaDTO categoriaQuartoDto = criarCategoria("Quarto");
+            ResponseCategoriaDTO categoriaBanheiroDto = criarCategoria("Banheiro");
+
+            List<ResponseCategoriaDTO> listaCategorias = categoriaService.listarTodas();
+            List<ResponseCategoriaDTO> listaCategoriasCriadas = new ArrayList<>();
+
+            listaCategoriasCriadas.add(categoriaCozinhaDto);
+            listaCategoriasCriadas.add(categoriaQuartoDto);
+            listaCategoriasCriadas.add(categoriaBanheiroDto);
+
+            assertEquals(3, listaCategorias.size());
+            assertArrayEquals(listaCategoriasCriadas.toArray(), listaCategorias.toArray());
 
         }
 
     }
 
     //helper
-    private ResponseCategoriaDTO criarCategoria() {
-        RequestCategoriaDTO categoriaDTO = new RequestCategoriaDTO("Cozinha");
+    private ResponseCategoriaDTO criarCategoria(String nomeCategoria) {
+        RequestCategoriaDTO categoriaDTO = new RequestCategoriaDTO(nomeCategoria);
 
         return categoriaService.criarNovaCategoria(categoriaDTO);
     }
