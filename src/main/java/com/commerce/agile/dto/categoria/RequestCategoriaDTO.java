@@ -1,4 +1,6 @@
 package com.commerce.agile.dto.categoria;
 
-public record RequestCategoriaDTO(String nome)
+import jakarta.validation.constraints.NotBlank;
+
+public record RequestCategoriaDTO(@NotBlank String nome)
 {}

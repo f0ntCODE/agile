@@ -1,6 +1,5 @@
 package com.commerce.agile.service;
 
-import com.commerce.agile.dominio.CategoriaDomain;
 import com.commerce.agile.dominio.MercadoriaDomain;
 import com.commerce.agile.dto.mercadoria.RequestMercadoriaDTO;
 import com.commerce.agile.dto.mercadoria.ResponseMercadoriaDTO;
@@ -14,9 +13,7 @@ import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.stylesheets.LinkStyle;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,7 +91,7 @@ public class MercadoriaService {
 
 
     @Transactional
-    public Optional<ResponseMercadoriaDTO> findMercadoriaById(Long id){
+    public Optional<ResponseMercadoriaDTO> buscarMercadoriaPeloId(Long id){
 
         Optional<Mercadoria> mercadoriaEncontrada = Optional.of(mercadoriaRepository.findById(id)
                 .orElseThrow(() -> new NaoEncontradoException("Mercadoria não encontrada")));

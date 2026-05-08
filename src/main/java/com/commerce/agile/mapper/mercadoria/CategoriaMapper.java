@@ -18,4 +18,6 @@ public interface CategoriaMapper {
     CategoriaDomain toDomainFromDto(ResponseCategoriaDTO dto);
 
     ResponseCategoriaDTO toDto(CategoriaDomain dominio);
+
+    ResponseCategoriaDTO toResponseFromEntity(Categoria categoria);
 }
