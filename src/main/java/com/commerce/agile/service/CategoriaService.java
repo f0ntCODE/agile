@@ -7,6 +7,7 @@ import com.commerce.agile.entidade.Categoria;
 import com.commerce.agile.entidade.Mercadoria;
 import com.commerce.agile.mapper.mercadoria.CategoriaMapper;
 import com.commerce.agile.repository.CategoriaRepository;
+import com.commerce.agile.seguranca.excecoes.DuplicidadeException;
 import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ public class CategoriaService {
 
     @Transactional
     public ResponseCategoriaDTO criarNovaCategoria(RequestCategoriaDTO requestCategoriaDTO){
+
+        if(categoriaRepository.existsByNome(requestCategoriaDTO.nome())){throw new DuplicidadeException("Não é permitido categorias duplicadas");
+        }
+
         CategoriaDomain categoriaDomain = new CategoriaDomain(
                 requestCategoriaDTO.nome()
         );

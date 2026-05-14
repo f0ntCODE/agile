@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface MercadoriaRepository extends JpaRepository<Mercadoria, Long> {
     Optional<Mercadoria> findById(Long id);
+
+    boolean existsByNome(String nome);
 }

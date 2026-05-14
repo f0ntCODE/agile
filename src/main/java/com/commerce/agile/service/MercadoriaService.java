@@ -9,6 +9,7 @@ import com.commerce.agile.mapper.mercadoria.CategoriaMapper;
 import com.commerce.agile.mapper.mercadoria.MercadoriaMapper;
 import com.commerce.agile.repository.CategoriaRepository;
 import com.commerce.agile.repository.MercadoriaRepository;
+import com.commerce.agile.seguranca.excecoes.DuplicidadeException;
 import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,13 @@ public class MercadoriaService {
 
     @Transactional
     public ResponseMercadoriaDTO criarNovaMercadoria(RequestMercadoriaDTO request, Long idCategoria){
+
+        if(mercadoriaRepository.existsByNome(request.nome())){throw  new DuplicidadeException("Essa mercadoria já existe");
+        }
+
         Categoria categoria = categoriaRepository.findById(idCategoria)
                 .orElseThrow(() -> new NaoEncontradoException("Categoria não encontrada"));
+
 
         MercadoriaDomain mercadoriaDomain = new MercadoriaDomain(
                 request.nome(),

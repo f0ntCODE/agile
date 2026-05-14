@@ -1,5 +1,6 @@
 package com.commerce.agile.dominio;
 import java.math.BigDecimal;
+import java.util.regex.Pattern;
 
 import src.main.java.com.commerce.agile.seguranca.excecoes.NomeInvalidoException;
 
@@ -16,20 +17,21 @@ public class MercadoriaDomain {
 
     public MercadoriaDomain(String nome, String descricao, BigDecimal precoUnitario){
 
-        if(nome == null || nome.isBlank()){throw new NomeInvalidoException("[X] Nome inválido ou vazio");}
+        if(nome == null || nome.isBlank() || nome.matches(".*[0-9].*")){throw new NomeInvalidoException("[X] Nome inválido ou vazio");}
         if(descricao == null || descricao.isBlank()){throw new NomeInvalidoException("[X] Descricao inválida ou vazia");}
         if(precoUnitario.equals(BigDecimal.ZERO) || precoUnitario.compareTo(BigDecimal.ZERO) < 0){throw  new IllegalArgumentException("[X] Preco inválido para mercadoria");};
-        this.nome = nome;
+
+        this.nome = nome.toLowerCase();
         this.descricao = descricao;
         this.precoUnitario = precoUnitario;
     }
 
     public void atualizarDados(String novoNome, String novaDescricao, BigDecimal novoPrecoUnitario){
-        if(novoNome == null || novoNome.isBlank()){throw new NomeInvalidoException("[X] Nome inválido ou vazio");}
+        if(novoNome == null || novoNome.isBlank() || novoNome.matches(".*[0-9].*")){throw new NomeInvalidoException("[X] Nome inválido ou vazio");}
         if(novaDescricao == null || novaDescricao.isBlank()){throw new NomeInvalidoException("[X] Descricao inválida ou vazia");}
         if(novoPrecoUnitario.equals(BigDecimal.ZERO) || novoPrecoUnitario.compareTo(BigDecimal.ZERO) < 0){throw  new IllegalArgumentException("[X] Preco inválido para mercadoria");}
 
-        this.nome = novoNome;
+        this.nome = novoNome.toLowerCase();
         this.descricao = novaDescricao;
         this.precoUnitario = novoPrecoUnitario;
     }

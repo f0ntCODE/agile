@@ -4,13 +4,17 @@ import com.commerce.agile.dto.categoria.RequestCategoriaDTO;
 import com.commerce.agile.dto.categoria.ResponseCategoriaDTO;
 import com.commerce.agile.dto.mercadoria.RequestMercadoriaDTO;
 import com.commerce.agile.dto.mercadoria.ResponseMercadoriaDTO;
+import com.commerce.agile.seguranca.excecoes.DuplicidadeException;
 import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
 import com.commerce.agile.service.CategoriaService;
 import com.commerce.agile.service.MercadoriaService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import src.main.java.com.commerce.agile.seguranca.excecoes.NomeInvalidoException;
+import src.main.java.com.commerce.agile.seguranca.excecoes.NomeInvalidoException;
 
 import java.math.BigDecimal;
 
@@ -116,6 +120,87 @@ public class MercadoriaTest {
         @Nested
         class FailProcedureTest{
 
+            @Test
+            @DisplayName("Mercadoria não pode ser criada sem uma categoria associada")
+            void mercadoriaNaoPodeSerCriadaSemCategoria(){
+                RequestMercadoriaDTO mercadoriaDTO = new RequestMercadoriaDTO("Cadeira de madeira", "Uma cadeira de madeira", BigDecimal.valueOf(124));
+
+
+                assertThrows(NaoEncontradoException.class, () -> {
+
+                    mercadoriaService.criarNovaMercadoria(mercadoriaDTO, 0L);
+
+                });
+
+            }
+
+            @Test
+            @DisplayName("A mercadoria não pode ser criada sem os parâmetros necessários")
+            void mercadoriaNaoPodeSerCriadaSemAtributos(){
+
+                RequestMercadoriaDTO mercadoriaDTO = new RequestMercadoriaDTO("", "cadeira", BigDecimal.TEN);
+
+                RequestCategoriaDTO categoriaDTO = new RequestCategoriaDTO("Cozinha");
+                ResponseCategoriaDTO cozinha = categoriaService.criarNovaCategoria(categoriaDTO);
+
+
+                assertThrows(NomeInvalidoException.class, () ->{
+
+                    mercadoriaService.criarNovaMercadoria(mercadoriaDTO, cozinha.id());
+
+                });
+
+            }
+
+            @Test
+            @DisplayName("Não se pode haver mercadoria duplicada")
+            void naoPodeHaverMarcadoriaDuplicada(){
+
+                RequestCategoriaDTO categoriaDTO = new RequestCategoriaDTO("Cozinha");
+                ResponseCategoriaDTO cozinha = categoriaService.criarNovaCategoria(categoriaDTO);
+
+                criarMercadoria("Cadeira", "Uma cadeira", cozinha);
+
+                assertThrows(DuplicidadeException.class, () ->{
+
+                    criarMercadoria("Cadeira", "Uma cadeira", cozinha);
+
+                });
+
+            }
+
+            @Test
+            @DisplayName("Mercadoria não pode ser criada com nome inválido")
+            void mercadoriaNaoPodeSerCriadaComNomeInvalido(){
+                RequestCategoriaDTO categoriaDTO = new RequestCategoriaDTO("Cozinha");
+                ResponseCategoriaDTO cozinha = categoriaService.criarNovaCategoria(categoriaDTO);
+
+                assertThrows(NomeInvalidoException.class, () ->{
+
+                    criarMercadoria("cadeira1", "Uma cadeira", cozinha);
+
+                });
+
+                assertThrows(NomeInvalidoException.class, () ->{
+
+                    criarMercadoria("1cadeira", "Uma cadeira", cozinha);
+
+                });
+
+                assertThrows(NomeInvalidoException.class, () ->{
+
+                    criarMercadoria("cad31ra", "Uma cadeira", cozinha);
+
+                });
+
+            }
 
         }
+
+        //helper
+    ResponseMercadoriaDTO criarMercadoria(String nome, String descricao, ResponseCategoriaDTO categoria){
+            RequestMercadoriaDTO mercadoriaDTO = new RequestMercadoriaDTO(nome, descricao, BigDecimal.TEN);
+
+            return mercadoriaService.criarNovaMercadoria(mercadoriaDTO, categoria.id());
     }
+}

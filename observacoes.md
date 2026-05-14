@@ -32,3 +32,23 @@ No default constructor for entity 'com.commerce.agile.entidade.Categoria'
 Pesquisei e descobri que isso é algo determinístico do JPA, que exige um construtor sem argumentos para funcionar corretamente. Mas, por quê? Segundo o que presquisei, JPA faz instanciação via reflexão, como que fazendo isto:
 
 `Categoria categoria = Categoria.class.getDeclaredConstructor().newInstance();`, que exige construtor sem parâmetros. Além disso, ele cria entidade separadamente para depois injetar os parâmetros. Se JPA faz dessa forma, então teria que ter um construtor sem parâmetros para ele.
+
+### Retorno de Entidade pelo Repository JPA
+
+Estive adicionando um validador para verificar a existência de categorias já existente no sistema para evitar duplicatas. Criei o método `findCategoriaByNome()` que retorna um `Optinal<String>`, na crença de que cumpriria meu propósito. 
+
+`if(categoriaRepository.findCategoriaByNome(requestCategoriaDTO.nome()).isPresent()){throw new DuplicidadeException("Não é permitido categorias duplicadas");
+        }`
+
+Entretanto, uma exceção fora lançada: 
+
+`org.springframework.orm.jpa.JpaSystemException: Specified result type [java.lang.String] did not match Query selection type [com.commerce.agile.entidade.Categoria] - multiple selections: use Tuple or array`
+
+Não estava compreendendo por que isso ocorreu. Não deveria o método do repositório encontrar a categoria por meio do nome que informei e retornar um *true*? Depois que pesquisar vi que não era bem assim. Quando se faz uma requisição para o repository ele envia uma Query SQL da seguinte maneira:
+
+`SELECT categoria WHERE categoria.nome = ?`
+
+Logo, entendi que ele na verdade está **retornando a entidade inteira que possua esse nome informado**, não um booleano. Para isso, precisarei criar o método `existsByNome(String nome)`, que vai, sim, retornar um booleano quando encontrar o nome correspondente - é o que quero que ocorra.
+
+Depois desta correção tudo funcionou perfeitamente. Sem categorias duplicadas dessa vez.
+
