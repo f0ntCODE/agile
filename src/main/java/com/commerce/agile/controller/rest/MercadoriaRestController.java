@@ -1,4 +1,4 @@
-package com.commerce.agile.controller;
+package com.commerce.agile.controller.rest;
 
 import com.commerce.agile.dto.mercadoria.RequestMercadoriaDTO;
 import com.commerce.agile.dto.mercadoria.ResponseMercadoriaDTO;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/mercadoria")
-public class MercadoriaController {
+public class MercadoriaRestController {
 
     @Autowired
     private MercadoriaService mercadoriaService;

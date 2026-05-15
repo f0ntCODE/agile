@@ -25,6 +25,13 @@ public class CategoriaService {
     @Autowired
     private CategoriaMapper categoriaMapper;
 
+
+    /**
+     *criar nova categoria
+     *
+     * @return O objeto DTO de resposta para Categoria
+     */
+
     @Transactional
     public ResponseCategoriaDTO criarNovaCategoria(RequestCategoriaDTO requestCategoriaDTO){
 

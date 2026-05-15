@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página de produtos
+    </title>
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+
+    <hr>
+    <table id="prodList">
+        <tr>
+            <th>Id</th>
+            <th>Produto</th>
+            <th>Descrição</th>
+            <th>Preço unitário</th>
+            <th>Ações</th>
+        </tr>
+        <!--DADOS DE EXEMPLO-->
+        <tr>
+            <td>1</td>
+            <td><span>Produto exemplo</span></td>
+            <td><span>Cadeira de Madeira super confortável</span> </td>
+            <td>R$ 45,82</td>
+            <td>
+                <button>Editar</button>
+                <button>Excluir</button>
+            </td>
+        </tr>
+    </table>
+    
+    <hr>
+
+    <script>
+
+        async function buscarMercadoria() {
+            const url = "http://localhost:8080/api/mercadoria";
+
+            const resposta = await fetch(url); //aguardar a resposta do servidor antes de prosseguir
+            const mercadorias = await resposta.json();
+
+            const lista = document.getElementById("prodList");
+
+            lista.innerHTML = '';
+
+            for(let i = 0; i < mercadorias.length; i++){
+
+                lista.innerHTML += `
+                    <li>
+                        ${mercadorias[i].nome}
+                        ${mercadorias[i].descricao}
+                        ${mercadorias[i].precoUnitario}
+                    </li>
+                `;
+            }
+
+        }
+
+        buscarMercadoria();
+
+    </script>
+
+</body>
+</html>

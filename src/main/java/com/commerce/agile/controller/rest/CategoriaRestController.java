@@ -1,4 +1,4 @@
-package com.commerce.agile.controller;
+package com.commerce.agile.controller.rest;
 
 import com.commerce.agile.dto.categoria.RequestCategoriaDTO;
 import com.commerce.agile.dto.categoria.ResponseCategoriaDTO;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categoria")
-public class CategoriaController {
+public class CategoriaRestController {
 
     @Autowired
     private CategoriaService categoriaService;
