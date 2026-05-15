@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br"
+xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Página de produtos
@@ -10,19 +11,24 @@
 
     <hr>
     <table id="prodList">
-        <tr>
-            <th>Id</th>
-            <th>Produto</th>
-            <th>Descrição</th>
-            <th>Preço unitário</th>
-            <th>Ações</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Produto</th>
+                <th>Descrição</th>
+                <th>Preço unitário</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
         <!--DADOS DE EXEMPLO-->
-        <tr>
-            <td>1</td>
-            <td><span>Produto exemplo</span></td>
-            <td><span>Cadeira de Madeira super confortável</span> </td>
-            <td>R$ 45,82</td>
+        <tr th:each="merc : ${mercadorias}">
+            <td th:text="${merc.id}">1</td>
+            <td th:text="${merc.nome}"><span>Produto exemplo</span></td>
+            <td th:text="${merc.descricao}"><span>Cadeira de Madeira super confortável</span> </td>
+            <td th:text="'R$ ' + ${#numbers.formatDecimal(merc.precoUnitario, 1, 2)}">R$ 45,82</td>
+            <td th:text="${merc.categoria.nome}">Categoria</td>
+
             <td>
                 <button>Editar</button>
                 <button>Excluir</button>
@@ -34,30 +40,7 @@
 
     <script>
 
-        async function buscarMercadoria() {
-            const url = "http://localhost:8080/api/mercadoria";
 
-            const resposta = await fetch(url); //aguardar a resposta do servidor antes de prosseguir
-            const mercadorias = await resposta.json();
-
-            const lista = document.getElementById("prodList");
-
-            lista.innerHTML = '';
-
-            for(let i = 0; i < mercadorias.length; i++){
-
-                lista.innerHTML += `
-                    <li>
-                        ${mercadorias[i].nome}
-                        ${mercadorias[i].descricao}
-                        ${mercadorias[i].precoUnitario}
-                    </li>
-                `;
-            }
-
-        }
-
-        buscarMercadoria();
 
     </script>
 
