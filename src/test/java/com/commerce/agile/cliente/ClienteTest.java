@@ -2,18 +2,16 @@ package com.commerce.agile.cliente;
 
 import com.commerce.agile.dto.cliente.RequestClienteDTO;
 import com.commerce.agile.dto.cliente.ResponseClienteDTO;
-import jakarta.validation.Valid;
+import com.commerce.agile.service.ClienteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -34,12 +32,11 @@ public class ClienteTest {
             DateTimeFormatter formato =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dataNascimento.format(formato);
 
-            @Valid
             RequestClienteDTO dto = new RequestClienteDTO("Afonso", "af@email.com", "senha123", "12345678910", dataNascimento);
 
             ResponseClienteDTO cliente = clienteService.registrarNovoCliente(dto);
 
-            assertTrue(clienteService.buscarPeloId(cliente.id).isPresent());
+            assertTrue(clienteService.buscarClientePeloId(cliente.id()).isPresent());
 
         }
 

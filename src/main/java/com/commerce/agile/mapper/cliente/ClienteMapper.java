@@ -18,4 +18,6 @@ public interface ClienteMapper {
 
     ClienteDomain toDomainFromEntity(Cliente cliente);
 
+    ResponseClienteDTO toDTOFromEntity(Cliente cliente);
+
 }
