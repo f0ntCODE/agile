@@ -1,5 +1,8 @@
 package com.commerce.agile.cliente;
 
+import com.commerce.agile.dto.cliente.RequestClienteDTO;
+import com.commerce.agile.dto.cliente.ResponseClienteDTO;
+import jakarta.validation.Valid;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -31,7 +34,8 @@ public class ClienteTest {
             DateTimeFormatter formato =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
             dataNascimento.format(formato);
 
-            RequestClienteDTO dto = new ResponseClienteDTO("Afonso", "af@email.com", "senha123", dataNascimento);
+            @Valid
+            RequestClienteDTO dto = new RequestClienteDTO("Afonso", "af@email.com", "senha123", "12345678910", dataNascimento);
 
             ResponseClienteDTO cliente = clienteService.registrarNovoCliente(dto);
 
