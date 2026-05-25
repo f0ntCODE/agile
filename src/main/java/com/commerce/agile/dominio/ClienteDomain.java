@@ -27,7 +27,7 @@ public class ClienteDomain {
 
         if(nome == null || nome.trim().isEmpty()) {throw new NomeInvalidoException("Nome de usuário está inválido");}
 
-        if(!isEmailValido(email)){throw new EmaiIInvalidoException("Email está inválido");}
+        if(isEmailValido(email) == false){throw new EmaiIInvalidoException("Email está inválido");}
 
         if(senha == null || senha.trim().isEmpty()){throw new SenhaInvalidaException("A senha está inválida");}
 
@@ -98,7 +98,7 @@ public class ClienteDomain {
 
     public void setCPF(String CPF) {
 
-        if(!isCPFValido(CPF)){throw new CpfInvalidoException("CPF está inválido");};
+        if(isCPFValido(CPF)){throw new CpfInvalidoException("CPF está inválido");};
 
             this.CPF = CPF;
     }
@@ -125,15 +125,19 @@ public class ClienteDomain {
 
         double idade = (epocaAtual - epocaNascimento);
 
-        return !(idade >= 18);
+        return (idade >= 18);
     }
 
     private boolean isEmailValido(String email) {
 
-        Pattern padraoEmail = Pattern.compile(".*@email.com");
+        Pattern padraoEmail = Pattern.compile(".+@email\\.com$");
         Matcher matcher = padraoEmail.matcher(email);
+        if(matcher.find()){
 
-        return matcher.hasMatch();
+            return true;
+        }
+
+        return false;
     }
 
     private boolean isCPFValido(String CPF) {

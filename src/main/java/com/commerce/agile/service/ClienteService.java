@@ -8,10 +8,12 @@ import com.commerce.agile.mapper.cliente.ClienteMapper;
 import com.commerce.agile.repository.ClienteRepository;
 import com.commerce.agile.seguranca.excecoes.JaExistenteException;
 import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -23,7 +25,7 @@ public class ClienteService {
     @Autowired
     private ClienteMapper clienteMapper;
 
-
+    @Transactional
     public ResponseClienteDTO registrarNovoCliente(@Valid RequestClienteDTO dto) {
 
         if(clienteRepository.existsByNome(dto.nome())){
@@ -42,6 +44,14 @@ public class ClienteService {
         Cliente clienteSalvo = clienteRepository.save(salvo);
 
         return clienteMapper.toDTOFromEntity(clienteSalvo);
+
+    }
+
+    @Transactional
+    public void excluirCliente(Long id) {
+        buscarClientePeloId(id);
+
+        clienteRepository.deleteById(id);
 
     }
 
