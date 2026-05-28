@@ -1,8 +1,7 @@
 package com.commerce.agile.dominio;
 import java.math.BigDecimal;
-import java.util.regex.Pattern;
 
-import src.main.java.com.commerce.agile.seguranca.excecoes.NomeInvalidoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.NomeInvalidoException;
 
 /**
  * DOMÍNIO MERCADORIA

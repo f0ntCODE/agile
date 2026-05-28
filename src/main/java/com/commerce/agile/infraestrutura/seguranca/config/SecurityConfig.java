@@ -1,4 +1,4 @@
-package com.commerce.agile.seguranca.config;
+package com.commerce.agile.infraestrutura.seguranca.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig{
 
     @Bean
     public PasswordEncoder passwordEncoder(){

@@ -2,15 +2,15 @@ package com.commerce.agile.categoria;
 
 import com.commerce.agile.dto.categoria.RequestCategoriaDTO;
 import com.commerce.agile.dto.categoria.ResponseCategoriaDTO;
-import com.commerce.agile.seguranca.excecoes.DuplicidadeException;
-import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.DuplicidadeException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.NaoEncontradoException;
 import com.commerce.agile.service.CategoriaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import src.main.java.com.commerce.agile.seguranca.excecoes.NomeInvalidoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.NomeInvalidoException;
 
 import java.util.ArrayList;
 import java.util.List;

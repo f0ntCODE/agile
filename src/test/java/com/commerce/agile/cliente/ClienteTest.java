@@ -2,10 +2,10 @@ package com.commerce.agile.cliente;
 
 import com.commerce.agile.dto.cliente.RequestClienteDTO;
 import com.commerce.agile.dto.cliente.ResponseClienteDTO;
-import com.commerce.agile.seguranca.excecoes.CpfInvalidoException;
-import com.commerce.agile.seguranca.excecoes.EmaiIInvalidoException;
-import com.commerce.agile.seguranca.excecoes.IdadeException;
-import com.commerce.agile.seguranca.excecoes.NaoEncontradoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.CpfInvalidoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.EmaiIInvalidoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.IdadeException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.NaoEncontradoException;
 import com.commerce.agile.service.ClienteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -17,8 +17,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ClienteTest {
@@ -45,6 +44,7 @@ public class ClienteTest {
             ResponseClienteDTO cliente = clienteService.registrarNovoCliente(dto);
 
             assertTrue(clienteService.buscarClientePeloId(cliente.id()).isPresent());
+            assertEquals("ROLE_CLIENTE", cliente.role());
 
         }
 
@@ -66,6 +66,26 @@ public class ClienteTest {
                 clienteService.buscarClientePeloId(cliente.id());
 
             });
+
+        }
+
+        @Test
+        @DisplayName("Os dados do cliente devem ser editados")
+        void dadosDoClienteDevemSerEditados(){
+            LocalDate dataNascimento = LocalDate.of(1999, Month.JANUARY, 5);
+            DateTimeFormatter formato =  DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dataNascimento.format(formato);
+
+            RequestClienteDTO dtoDadosErrados = new RequestClienteDTO("Afos", "af@email.com", "senha123", "12345678910", dataNascimento);
+
+            ResponseClienteDTO cliente = clienteService.registrarNovoCliente(dtoDadosErrados);
+
+            RequestClienteDTO novosDados = new RequestClienteDTO("Afonso", "", "", "",  null);
+
+            ResponseClienteDTO clienteAtualizado = clienteService.atualizarDadosCliente(cliente.id(), novosDados);
+
+            assertNotEquals(cliente.nome(), clienteAtualizado.nome());
+            assertEquals(cliente.id(), clienteAtualizado.id());
 
         }
 

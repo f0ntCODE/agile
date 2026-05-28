@@ -1,4 +1,4 @@
-package com.commerce.agile.seguranca.excecoes;
+package com.commerce.agile.infraestrutura.seguranca.excecoes;
 
 public class IdadeException extends RuntimeException {
     public IdadeException(String message) {

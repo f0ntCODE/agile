@@ -1,10 +1,10 @@
 package com.commerce.agile.dominio;
 
-import com.commerce.agile.seguranca.excecoes.CpfInvalidoException;
-import com.commerce.agile.seguranca.excecoes.EmaiIInvalidoException;
-import com.commerce.agile.seguranca.excecoes.IdadeException;
-import com.commerce.agile.seguranca.excecoes.SenhaInvalidaException;
-import src.main.java.com.commerce.agile.seguranca.excecoes.NomeInvalidoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.CpfInvalidoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.EmaiIInvalidoException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.IdadeException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.SenhaInvalidaException;
+import com.commerce.agile.infraestrutura.seguranca.excecoes.NomeInvalidoException;
 
 import java.time.LocalDate;
 import java.util.regex.Matcher;
