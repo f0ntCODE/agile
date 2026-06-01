@@ -116,6 +116,14 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- VARIÁVEIS DE AMBIENTE -->
+		<dependency>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>dotenv-java</artifactId>
+			<version>3.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+
 
 	</dependencies>
 
