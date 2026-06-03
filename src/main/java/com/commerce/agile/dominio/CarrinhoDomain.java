@@ -24,8 +24,7 @@ public class CarrinhoDomain {
 
         if(quantidade <= 0) throw new IllegalArgumentException("Quantidade inválida");
 
-        Optional<ProdutosCarrinho> produtoExistente = produtos.stream().filter(p ->
-                p.getMercadoria().equals(mercadoria)).findFirst();
+        Optional<ProdutosCarrinho> produtoExistente = buscarProduto(mercadoria);
 
         if(produtoExistente.isPresent()) {
 
@@ -38,6 +37,45 @@ public class CarrinhoDomain {
             produtos.add(new ProdutosCarrinho(mercadoria, quantidade));
 
         }
+
+    }
+
+    public void removerDoCarrinho(MercadoriaDomain mercadoria, short quantidade) {
+
+        if(quantidade <= 0){throw new IllegalArgumentException("Quantidade inválida");}
+
+        Optional<ProdutosCarrinho> produtoExistente = buscarProduto(mercadoria);
+
+        if(produtoExistente.isEmpty()) {throw new NaoEncontradoException("A mercadoria não foi encontrada");}
+
+        if(produtoExistente.get().getQuantidade() < quantidade){
+            throw new IllegalArgumentException("Não se pode remover além da quantidade da mercadoria que existe do carrinho");
+
+        }
+
+        if (produtoExistente.get().getQuantidade() == quantidade) {
+
+            produtos.remove(produtoExistente.get());
+
+            return;
+
+        }
+
+        produtoExistente.get().subtrairProduto(quantidade);
+
+    }
+
+
+    /**
+     *Buscar o produto da classe {@link ProdutosCarrinho} e retornar o objeto {@link MercadoriaDomain}.
+     * @param mercadoria
+     * @return objeto {@link Optional} da classe {@link MercadoriaDomain}
+     * @throws NaoEncontradoException
+     */
+    private Optional<ProdutosCarrinho> buscarProduto(MercadoriaDomain mercadoria){
+
+        return produtos.stream().filter(p ->
+                p.getMercadoria().equals(mercadoria)).findFirst();
 
     }
 

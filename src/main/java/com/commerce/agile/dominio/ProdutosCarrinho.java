@@ -19,6 +19,12 @@ public class ProdutosCarrinho {
 
     }
 
+    public void subtrairProduto(short quantidade){
+
+        this.quantidade -= quantidade;
+
+    }
+
     public short getQuantidade() {return quantidade;}
 
     public MercadoriaDomain getMercadoria() {return mercadoria;}
