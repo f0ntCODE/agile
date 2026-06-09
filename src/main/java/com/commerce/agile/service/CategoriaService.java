@@ -34,7 +34,7 @@ public class CategoriaService {
     @Transactional
     public ResponseCategoriaDTO criarNovaCategoria(RequestCategoriaDTO requestCategoriaDTO){
 
-        if(categoriaRepository.existsByNome(requestCategoriaDTO.nome())){throw new DuplicidadeException("Não é permitido categorias duplicadas");
+        if(categoriaRepository.existsByNome(requestCategoriaDTO.nome().toLowerCase())){throw new DuplicidadeException("Não é permitido categorias duplicadas");
         }
 
         CategoriaDomain categoriaDomain = new CategoriaDomain(

@@ -79,4 +79,12 @@ public class CarrinhoDomain {
 
     }
 
+    public ClienteDomain getCliente() {
+        return cliente;
+    }
+
+    public Set<ProdutosCarrinho> getProdutos() {
+        return produtos;
+    }
+
 }

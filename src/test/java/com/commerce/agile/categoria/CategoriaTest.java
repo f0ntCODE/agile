@@ -35,7 +35,7 @@ public class CategoriaTest {
             ResponseCategoriaDTO response = categoriaService.criarNovaCategoria(categoriaDTO);
 
             assertTrue(categoriaService.buscarCategoriaPorId(response.id()).isPresent());
-            assertEquals(categoriaDTO.nome(), response.nome());
+            assertEquals("cozinha", response.nome());
 
         }
 
@@ -97,7 +97,7 @@ public class CategoriaTest {
                 RequestCategoriaDTO categoriaDTO = new RequestCategoriaDTO("Cozinha");
 
                 assertThrows(DuplicidadeException.class, () -> {
-                    ResponseCategoriaDTO cozinha2 = categoriaService.criarNovaCategoria(categoriaDTO);
+                    categoriaService.criarNovaCategoria(categoriaDTO);
 
                 });
 
