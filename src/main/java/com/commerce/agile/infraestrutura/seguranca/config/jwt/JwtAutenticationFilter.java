@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.commerce.agile.dto.cliente.RequestClienteDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.cdimascio.dotenv.Dotenv;
-import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -42,7 +40,7 @@ public class JwtAutenticationFilter extends UsernamePasswordAuthenticationFilter
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            clienteDTO.nome(),
+                            clienteDTO.email(),
                             clienteDTO.senha()
                     )
             );

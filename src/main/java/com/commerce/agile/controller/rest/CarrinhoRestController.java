@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/carrinho")
-public class CarrinhoController {
+public class CarrinhoRestController {
 
 	@Autowired
 	private CarrinhoService carrinhoService;
